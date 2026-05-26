@@ -27,6 +27,7 @@ class Game:
 
     def draw(self):
         self.screen.fill(DARK_GREY) # Background color
+        self.board.draw(self.screen)
         pygame.display.flip()
 
 game = Game()
