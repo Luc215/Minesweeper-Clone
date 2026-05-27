@@ -25,6 +25,31 @@ class Game:
                 pygame.quit()
                 sys.exit(0)
 
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mx, my = pygame.mouse.get_pos()
+                mx //= tileSize
+                my //= tileSize
+
+                if event.button == 1:
+                    if not self.board.boardList[mx][my].flagged:
+                        # dig and explode
+                        if not self.board.dig(mx, my):
+                            # explode
+                            for row in self.board.boardList:
+                                for tile in row:
+                                    if tile.flagged and tile.type != "X":
+                                        tile.flagged = False
+                                        tile.revealed = True
+                                        tile.image = tileNotMine
+                                    elif tile.type == "X":
+                                        tile.revealed = True
+
+                if event.button == 3:
+                    if not self.board.boardList[mx][my].revealed:
+                        self.board.boardList[mx][my].flagged = not self.board.boardList[mx][my].flagged
+
+
+
     def draw(self):
         self.screen.fill(DARK_GREY) # Background color
         self.board.draw(self.screen)

@@ -15,7 +15,12 @@ class Tile:
         self.flagged = flagged
 
     def draw(self, boardSurface):
-        boardSurface.blit(self.image, (self.x, self.y))
+        if self.revealed and not self.flagged:
+            boardSurface.blit(self.image, (self.x, self.y))
+        elif not self.revealed and self.flagged:
+            boardSurface.blit(tileFlag, (self.x, self.y))
+        elif not self.revealed:
+            boardSurface.blit(tileUnknown, (self.x, self.y))
 
     def __repr__(self):
         return self.type
@@ -23,15 +28,16 @@ class Tile:
 class Board:
     def __init__(self):
         self.surface = pygame.Surface((width,height))
-        self.boardList = [[Tile(col, row, tileEmpty, ".") for col in range(cols)] for row in range(rows)]
+        self.boardList = [[Tile(col, row, tileEmpty, ".") for row in range(rows)] for col in range(cols)]
         self.placeMines()
         self.placeClues()
+        self.dug = []
 
     def placeMines(self):
         for _ in range(amountOfMines):
             while True:
-                x = random.randint(0, rows - 1)
-                y = random.randint(0, cols - 1)
+                x = random.randint(0, cols - 1)
+                y = random.randint(0, rows - 1)
                 if self.boardList[x][y].type != "X":
                     self.boardList[x][y].image = tileMine
                     self.boardList[x][y].type = "X"
@@ -65,6 +71,26 @@ class Board:
             for tile in row:
                 tile.draw(self.surface)
             screen.blit(self.surface, (0,0))
+
+    def dig(self, x, y):
+        self.dug.append((x,y))
+        if(self.boardList[x][y]).type == "X": # Implement lazy initialization
+            self.boardList[x][y].revealed = True
+            self.boardList[x][y].image = tileExploded 
+            return False
+        
+        elif self.boardList[x][y].type == "C":
+            self.boardList[x][y].revealed = True
+            return True
+        
+        self.boardList[x][y].revealed = True
+
+        for row in range(max(0,x-1), min(rows-1, x+1)+1):
+            for col in range(max(0,y-1), min(cols-1, y+1)+1):
+                if (row, col) not in self.dug:
+                    self.dig(row,col)
+            
+        return True
             
     def displayBoard(self):
         for i in self.boardList:
