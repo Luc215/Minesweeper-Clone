@@ -18,6 +18,9 @@ class Game:
             self.clock.tick(fps)
             self.events()
             self.draw()
+        
+        else:
+            self.endScreen()
 
     def events(self):
         for event in pygame.event.get():
@@ -43,10 +46,36 @@ class Game:
                                         tile.image = tileNotMine
                                     elif tile.type == "X":
                                         tile.revealed = True
+                            self.playing = False
 
                 if event.button == 3:
                     if not self.board.boardList[mx][my].revealed:
                         self.board.boardList[mx][my].flagged = not self.board.boardList[mx][my].flagged
+
+                if self.checkWin():
+                    self.win = True
+                    self.playing = False
+                    for row in self.board.boardList:
+                        for tile in row:
+                            if not tile.revealed:
+                                tile.flagged = True
+    
+    def endScreen(self):
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit(0)
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    return
+
+    def checkWin(self):
+        for row in self.board.boardList:
+            for tile in row:
+                if tile.type != "X" and not tile.revealed:
+                    return False
+        
+        return True
 
 
 
