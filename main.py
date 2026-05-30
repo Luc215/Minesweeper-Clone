@@ -10,7 +10,6 @@ class Game:
     
     def new(self):
         self.board = Board()
-        self.board.displayBoard()
 
     def run(self):
         self.playing = True
@@ -76,9 +75,7 @@ class Game:
                     return False
         
         return True
-
-
-
+    
     def draw(self):
         self.screen.fill(DARK_GREY) # Background color
         self.board.draw(self.screen)

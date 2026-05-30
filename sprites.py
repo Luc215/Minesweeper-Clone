@@ -22,22 +22,24 @@ class Tile:
         elif not self.revealed:
             boardSurface.blit(tileUnknown, (self.x, self.y))
 
-    def __repr__(self):
-        return self.type
 
 class Board:
     def __init__(self):
+        self.firstTime = True
         self.surface = pygame.Surface((width,height))
         self.boardList = [[Tile(col, row, tileEmpty, ".") for row in range(rows)] for col in range(cols)]
-        self.placeMines()
-        self.placeClues()
         self.dug = []
 
-    def placeMines(self):
+    def placeMines(self, firstX, firstY):
         for _ in range(amountOfMines):
             while True:
                 x = random.randint(0, cols - 1)
                 y = random.randint(0, rows - 1)
+
+                while(firstX == x and firstY == y): 
+                    x = random.randint(0, cols - 1)
+                    y = random.randint(0, rows - 1)
+
                 if self.boardList[x][y].type != "X":
                     self.boardList[x][y].image = tileMine
                     self.boardList[x][y].type = "X"
@@ -73,8 +75,13 @@ class Board:
             screen.blit(self.surface, (0,0))
 
     def dig(self, x, y):
+        if self.firstTime:
+            self.placeMines(x, y)
+            self.placeClues()
+            self.firstTime = False
+            
         self.dug.append((x,y))
-        if(self.boardList[x][y]).type == "X": # Implement lazy initialization
+        if(self.boardList[x][y]).type == "X":
             self.boardList[x][y].revealed = True
             self.boardList[x][y].image = tileExploded 
             return False
@@ -91,7 +98,5 @@ class Board:
                     self.dig(row,col)
             
         return True
-            
-    def displayBoard(self):
-        for i in self.boardList:
-            print(i)
+    
+

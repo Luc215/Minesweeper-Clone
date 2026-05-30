@@ -6,7 +6,6 @@ BLACK = (0,0,0)
 DARK_GREY = (40,40,40)
 LIGHT_GREY = (100,100,100)
 GREEN = (0,255,0)
-DARK_GREEN = ()
 BLUE = (0,0,255)
 RED = (255,0,0)
 YELLOW = (255,255,0)
@@ -15,9 +14,9 @@ YELLOW = (255,255,0)
 
 # Actual settings for the game
 tileSize = 32
-rows = 15
-cols = 15
-amountOfMines = 20
+rows = 16
+cols = 16
+amountOfMines = 40
 width = tileSize * cols
 height = tileSize * rows
 title = "Minesweeper"
