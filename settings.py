@@ -1,4 +1,5 @@
 import os
+import sys
 import pygame
 # Colors for the game (R, G, B)
 WHITE = (255,255,255)
@@ -10,7 +11,10 @@ BLUE = (0,0,255)
 RED = (255,0,0)
 YELLOW = (255,255,0)
 
-
+def getAssetPath(relativePath):
+    
+    basePath = getattr(sys, '_MEIPASS', os.path.abspath("."))
+    return os.path.join(basePath, relativePath)
 
 # Actual settings for the game
 tileSize = 32
@@ -24,11 +28,11 @@ fps = 60
 
 tileNumbers = []
 for i in range(1,9):
-    tileNumbers.append(pygame.transform.scale(pygame.image.load(os.path.join("assets", f"Tile{i}.png")), (tileSize,tileSize)))
-
-tileEmpty = pygame.transform.scale(pygame.image.load(os.path.join("assets", "TileEmpty.png")), (tileSize,tileSize))
-tileExploded = pygame.transform.scale(pygame.image.load(os.path.join("assets", "TileExploded.png")), (tileSize,tileSize))
-tileFlag = pygame.transform.scale(pygame.image.load(os.path.join("assets", "TileFlag.png")), (tileSize,tileSize))
-tileMine = pygame.transform.scale(pygame.image.load(os.path.join("assets", "TileMine.png")), (tileSize,tileSize))
-tileNotMine = pygame.transform.scale(pygame.image.load(os.path.join("assets", "TileNotMine.png")), (tileSize,tileSize))
-tileUnknown = pygame.transform.scale(pygame.image.load(os.path.join("assets", "TileUnknown.png")), (tileSize,tileSize))
+    tileNumbers.append(pygame.transform.scale(pygame.image.load(getAssetPath(f"assets/Tile{i}.png")), (tileSize,tileSize)))
+    
+tileEmpty = pygame.transform.scale(pygame.image.load(getAssetPath(f"assets/TileEmpty.png")), (tileSize,tileSize))
+tileExploded = pygame.transform.scale(pygame.image.load(getAssetPath(f"assets/TileExploded.png")), (tileSize,tileSize))
+tileFlag = pygame.transform.scale(pygame.image.load(getAssetPath(f"assets/TileFlag.png")), (tileSize,tileSize))
+tileMine = pygame.transform.scale(pygame.image.load(getAssetPath(f"assets/TileMine.png")), (tileSize,tileSize))
+tileNotMine = pygame.transform.scale(pygame.image.load(getAssetPath(f"assets/TileNotMine.png")), (tileSize,tileSize))
+tileUnknown = pygame.transform.scale(pygame.image.load(getAssetPath(f"assets/TileUnknown.png")), (tileSize,tileSize))
