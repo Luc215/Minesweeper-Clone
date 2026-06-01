@@ -1,5 +1,5 @@
 ('/Users/lucaslyubenko/Desktop/programming/minesweeper/build/main/main',
- True,
+ False,
  False,
  True,
  None,
@@ -47,8 +47,8 @@
  [],
  False,
  False,
- 1780289071,
- [('run',
-   '/Users/lucaslyubenko/Desktop/programming/minesweeper/.venv/lib/python3.14/site-packages/PyInstaller/bootloader/Darwin-64bit/run',
+ 1780290478,
+ [('runw',
+   '/Users/lucaslyubenko/Desktop/programming/minesweeper/.venv/lib/python3.14/site-packages/PyInstaller/bootloader/Darwin-64bit/runw',
    'EXECUTABLE')],
  '/opt/homebrew/Cellar/python@3.14/3.14.5/Frameworks/Python.framework/Versions/3.14/Python')
