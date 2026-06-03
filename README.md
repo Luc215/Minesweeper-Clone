@@ -10,3 +10,5 @@ A Minesweeper clone using Python and Pygame
 * To close the game, simply close the window
 
 To run the game, run in terminal ```python3 main.py```
+
+If you are going to run the executable version in the github release, Simply download the zip file, extract it, and the Minesweeper is ready to play.
