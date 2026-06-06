@@ -1,6 +1,6 @@
 # Minesweeper-Clone
 
-A Minesweeper clone using Python and Pygame
+A Minesweeper clone built with Python and Pygame, featuring algorithmic techniques including Breadth-First Search (BFS) for flood-fill cell revealing and Lazy Initialization for optimized mine generation.
 ### Game Settings
 * 16 x 16 Board Size
 * 40 Mines
